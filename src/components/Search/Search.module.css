@@ -9,3 +9,7 @@ div .newClass {
   /* background-color: white;
   outline: none; */
 }
+
+img {
+  width: 120px;
+}

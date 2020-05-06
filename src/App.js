@@ -18,7 +18,6 @@ function App() {
 
       <Container maxWidth="md">
         <Search />
-        <MovieList />
       </Container>
     </div>
   );
