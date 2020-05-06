@@ -1,0 +1,11 @@
+div .container {
+  margin: 16px 0;
+  display: flex;
+}
+
+div .newClass {
+  width: 100%;
+  margin-right: 8px;
+  /* background-color: white;
+  outline: none; */
+}
