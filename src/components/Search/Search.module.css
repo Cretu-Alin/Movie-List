@@ -3,13 +3,12 @@ div .container {
   display: flex;
 }
 
-div .newClass {
+div .search {
   width: 100%;
-  margin-right: 8px;
-  /* background-color: white;
-  outline: none; */
+  margin-right: 15px;
 }
 
-img {
-  width: 120px;
+.btn {
+  background-color: white;
+  color: white;
 }

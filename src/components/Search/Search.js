@@ -1,27 +1,66 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { TextField, Button, Container } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Container,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
+
 import SearchIcon from "@material-ui/icons/Search";
-import styles from "./Search.module.css";
-import ResultList from "./ResultList";
+
+import ResultsList from "./ResultsList";
 
 import Settings from "../../config/Settings";
+
+import styles from "./Search.module.css";
+import Swal from "sweetalert2";
 
 class Search extends Component {
   state = {
     searchResults: [],
     searchTerm: "",
+    searchTermError: "",
+  };
+
+  inputValidate = () => {
+    let isError = false;
+    const errors = {
+      searchTermError: "",
+    };
+    if (this.state.searchTerm.length < 1) {
+      isError = true;
+      errors.searchTermError = "Input field is empty. Please try again!";
+    }
+    this.setState({
+      ...this.state,
+      ...errors,
+    });
+    return isError;
   };
 
   handleSearch = () => {
-    const { API_URL, API_KEY } = Settings;
-    const url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${this.state.searchTerm}`;
-    console.log(url);
-    axios.get(url).then((response) => {
-      this.setState({
-        searchResults: response.data.results,
+    const errorSearch = this.inputValidate();
+    if (!errorSearch) {
+      const { API_URL, API_KEY } = Settings;
+
+      const url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${this.state.searchTerm}`;
+
+      axios.get(url).then((response) => {
+        if (response.data.results.length < 1) {
+          this.setState({
+            searchTermError: "Movie not found. Please try again!",
+          });
+        }
+        this.setState({
+          searchResults: response.data.results,
+        });
       });
-    });
+      this.setState({
+        searchTerm: "",
+      });
+    }
   };
 
   handleChange = (event) => {
@@ -30,34 +69,64 @@ class Search extends Component {
     });
   };
 
+  handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      this.handleSearch();
+    }
+  };
+
+  handleAdd = (movie) => {
+    this.setState({
+      searchResults: [],
+      searchTerm: "",
+    });
+    this.props.onMovieAdd(movie);
+    Swal.fire({
+      position: "center",
+      width: "30rem",
+      icon: "success",
+      title: "Your movie has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Container className={styles.container}>
           <TextField
-            label="Please click here"
-            placeholder="Type the name"
+            placeholder="Type the name of a movie..."
+            label="Search"
             variant="outlined"
-            className={styles.newClass}
+            className={styles.search}
             value={this.state.searchTerm}
             onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+            error={this.state.searchTermError ? this.inputValidate : false}
+            helperText={this.state.searchTermError}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton variant="outlined" onClick={this.handleSearch}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
-          <Button
-            variant="contained"
-            color="default"
-            onClick={this.handleSearch}
-            startIcon={<SearchIcon />}
-          >
-            Search
-          </Button>
         </Container>
         {this.state.searchResults.length > 0 && (
           <Container className={styles.results}>
-            <ResultList movies={this.state.searchResults} />
+            <ResultsList
+              movies={this.state.searchResults}
+              onAdd={this.handleAdd}
+            />
           </Container>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
+
 export default Search;

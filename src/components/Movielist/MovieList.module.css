@@ -1,0 +1,62 @@
+img .cardImage {
+  height: 450px;
+  width: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.MuiGridListTile-imgFullWidth {
+  position: relative;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+.grid {
+  margin-left: 15px;
+}
+.paper {
+  margin-bottom: 35px;
+  margin-top: 10px;
+
+  background-image: linear-gradient(135deg, #97abff 10%, #123597 100%);
+}
+
+.color {
+  color: white;
+}
+
+.remove {
+  color: #fff;
+  cursor: pointer;
+
+  margin-top: 45%;
+  margin-left: 275px;
+}
+
+.remove:hover {
+  transform: scale(1.2);
+}
+
+@media only screen and (max-width: 600px) {
+  .paper {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .secondContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .remove {
+    margin: 0;
+  }
+}

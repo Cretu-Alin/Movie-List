@@ -1,0 +1,13 @@
+.emptyStar {
+  color: lightslategray;
+}
+
+.emptyStar:hover {
+  color: orange;
+}
+
+.filledStar {
+  color: orange;
+  cursor: pointer;
+  transition: color 200ms;
+}
