@@ -11,7 +11,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import ResultsList from "./ResultsList";
 
-import Settings from "../../config/Settings";
+import Settings from "../../config/Settings.example";
 
 import styles from "./Search.module.css";
 
