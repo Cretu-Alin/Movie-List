@@ -2,7 +2,6 @@ import React from "react";
 import {
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   Button,
   Tooltip,
@@ -12,7 +11,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import styles from "./Header.module.css";
-import MenuIcon from "@material-ui/icons/Menu";
 
 const Header = (props) => {
   return (

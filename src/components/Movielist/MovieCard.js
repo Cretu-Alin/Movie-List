@@ -5,7 +5,7 @@ import { Paper, Grid, ButtonBase, Typography } from "@material-ui/core";
 import Rating from "./Rating";
 import { formatDate } from "../../utils/dateUtils";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import NoImage from "../../../src/img1.png";
 const getPosterUrl = (imageUri) => `https://image.tmdb.org/t/p/w200${imageUri}`;
 
 const MovieCard = (props) => {
@@ -18,8 +18,15 @@ const MovieCard = (props) => {
             <ButtonBase>
               <img
                 className={style.grid}
+                style={{ width: "200px", height: "322px" }}
                 alt="complex"
-                src={getPosterUrl(movie.poster_path)}
+                // src={getPosterUrl(movie.poster_path)}
+
+                src={
+                  movie.poster_path === null
+                    ? NoImage
+                    : getPosterUrl(movie.poster_path)
+                }
               />
             </ButtonBase>
           </Grid>

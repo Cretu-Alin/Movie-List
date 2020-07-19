@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./shared/Header/Header";
-import { Grid, Container, TextField, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import "./App.css";
 import MovieList from "./components/Movielist/MovieList";
 import Search from "./components/Search/Search";
 import Login from "./Login";
 import Swal from "sweetalert2";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
@@ -27,18 +27,41 @@ class App extends React.Component {
 
   onMovieAdd = (movie) => {
     const movies = this.state.savedMovies;
-    movies.push(movie);
-
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        savedMovies: movies,
-      })
+    const movieAlreadyFav = movies.find(
+      (savedMovie) => savedMovie.id === movie.id
     );
 
-    this.setState({
-      savedMovies: movies,
-    });
+    if (movieAlreadyFav) {
+      Swal.fire({
+        position: "center",
+        width: "30rem",
+        icon: "warning",
+        title: "Your movie has already been saved",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      movies.push(movie);
+
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          savedMovies: movies,
+        })
+      );
+
+      this.setState({
+        savedMovies: movies,
+      });
+      Swal.fire({
+        position: "center",
+        width: "30rem",
+        icon: "success",
+        title: "Your movie has been saved",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   updateFavMovies = (newMovies) => {
@@ -58,7 +81,6 @@ class App extends React.Component {
       (item) => item.id !== movie.id
     );
     this.updateFavMovies(result);
-    console.log("Working");
   };
 
   changeRating = (rating, movieId) => {

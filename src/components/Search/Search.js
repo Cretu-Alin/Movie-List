@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import {
   TextField,
-  Button,
   Container,
   InputAdornment,
   IconButton,
@@ -15,7 +14,6 @@ import ResultsList from "./ResultsList";
 import Settings from "../../config/Settings";
 
 import styles from "./Search.module.css";
-import Swal from "sweetalert2";
 
 class Search extends Component {
   state = {
@@ -81,14 +79,6 @@ class Search extends Component {
       searchTerm: "",
     });
     this.props.onMovieAdd(movie);
-    Swal.fire({
-      position: "center",
-      width: "30rem",
-      icon: "success",
-      title: "Your movie has been saved",
-      showConfirmButton: false,
-      timer: 1500,
-    });
   };
 
   render() {
