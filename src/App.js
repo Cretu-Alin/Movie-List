@@ -58,6 +58,7 @@ class App extends React.Component {
       (item) => item.id !== movie.id
     );
     this.updateFavMovies(result);
+    console.log("Working");
   };
 
   changeRating = (rating, movieId) => {
